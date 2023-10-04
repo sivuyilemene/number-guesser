@@ -1,23 +1,25 @@
 // Generate a random number between 1 and 100.
 let randomNumber = Math.floor(Math.random() * 100) +1;
-console.log("random number: " + randomNumber)
+console.log("random number: " + randomNumber);
 
 // get the elements we want to manipulate
 const guesses = document.querySelector(".guesses");
 const lastResult = document.querySelector(".lastResult");
 const lowOrHi = document.querySelector(".lowOrHi");
 
-const guessSubmit = document.querySelector(".guessSubmit");
 const guessField = document.querySelector(".guessField");
+const guessSubmit = document.querySelector(".guessSubmit");
 
+guessSubmit.addEventListener("click", checkGuess);
 
 // Record the turn number the player is on. Start it on 1.
 let guessCount = 1;
+console.log("guessCount: " + guessCount);
 let resetButton;
 
 // Provide the player with a way to guess what the number is.
 function checkGuess() {
-    const userGuess = Number(guessField);
+    const userGuess = Number(guessField.value);
     console.log("user guess: " + userGuess)
     if(guessCount === 1){
         guesses.textContent = "Previous guesses:";
