@@ -47,13 +47,15 @@ function checkGuess() {
         // Stop the player from being able to enter more guesses (this would mess the game up).
         setGameOver();
 
-    // If it is wrong and the player has turns left:
+    // If it is wrong and the player still has turns left:
     } else{
         lastResult.textContent = "Wrong!";
         lastResult.style.backgroundColor = "red";
         if (userGuess < randomNumber){
+            // if the user guesses to low
             lowOrHi.textContent = "Last guess was too low!";
         } else if (userGuess > randomNumber){
+            // if the user guesses to high
             lowOrHi.textContent = "Last guess was too high!";
         }
 
@@ -66,6 +68,38 @@ function checkGuess() {
 }
 
 
-// Display control allowing the player to restart the game.
-// Display control allowing the player to restart the game.
-// Once the game restarts, make sure the game logic and UI are completely reset, then go back to step 1.
+function setGameOver() {
+    // Stop the player from being able to enter more guesses
+    guessField.disabled = true;
+    guessSubmit.disabled = true;
+
+    // create a button that allows the user to restart the game.
+    resetButton = document.createElement("button");
+    resetButton.textContent = "Start new game";
+    document.body.append(resetButton);
+    
+    // Display control allowing the player to restart the game.
+    resetButton.addEventListener("click", resetGame);
+}
+
+function resetGame() {
+
+    // reset the game logic and UI
+    guessCount = 1;
+
+    const resetParas = document.querySelectorAll(".resultParas p");
+    for(const resetPara of resetParas){
+        resetPara.textContent = "";
+    }
+
+    resetButton.parentNode.removeChild(resetButton);
+
+    guessField.disabled = false;
+    guessSubmit.disabled = false;
+    guessField.value = "";
+    guessField.focus();
+
+    lastResult.style.backgroundColor = "white";
+
+    randomNumber = Math.floor(Math.random() *100) +1;
+}
